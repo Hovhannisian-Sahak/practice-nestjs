@@ -24,6 +24,9 @@ export class CreateUserDto {
   @IsString()
   @IsOptional()
   displayName?: string;
+  @IsNotEmpty()
+  @IsString()
+  password: string;
   @IsOptional()
   @ValidateNested()
   @Type(() => CreateUserSettingsDto)

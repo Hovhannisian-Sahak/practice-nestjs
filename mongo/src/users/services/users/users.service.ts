@@ -5,6 +5,7 @@ import { User } from 'src/schemas/User.schema';
 import { UserSettings } from 'src/schemas/UserSettings.schema';
 import { CreateUserDto } from 'src/users/dtos/CreateUser.dto';
 import { UpdateUserDto } from 'src/users/dtos/UpdateUser.dto';
+import { encodePassword } from 'src/utils/bcrypt';
 
 @Injectable()
 export class UsersService {
@@ -23,7 +24,8 @@ export class UsersService {
       });
       return newUser.save();
     }
-    const newUser = new this.userModel(createUserDto);
+    const password = encodePassword(createUserDto.password);
+    const newUser = new this.userModel({ ...createUserDto, password });
     return newUser.save();
   }
   getUsers() {
