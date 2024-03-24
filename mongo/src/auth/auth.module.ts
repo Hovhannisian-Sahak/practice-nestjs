@@ -10,7 +10,8 @@ import {
 } from 'src/schemas/UserSettings.schema';
 import { LocalStrategy } from 'src/utils/LocalStrategy';
 import { PassportModule } from '@nestjs/passport';
-
+import { JwtModule } from '@nestjs/jwt';
+require('dotenv').config();
 @Module({
   imports: [
     MongooseModule.forFeature([
@@ -19,6 +20,10 @@ import { PassportModule } from '@nestjs/passport';
       { name: UserSettings.name, schema: UserSettingsSchema },
     ]),
     PassportModule,
+    JwtModule.register({
+      secret: process.env.JWT_SECRET,
+      signOptions: { expiresIn: '1d' },
+    }),
   ],
 
   controllers: [AuthController],
@@ -31,6 +36,7 @@ import { PassportModule } from '@nestjs/passport';
       provide: 'USER_SERVICE',
       useClass: UsersService,
     },
+    AuthService,
     LocalStrategy,
   ],
 })

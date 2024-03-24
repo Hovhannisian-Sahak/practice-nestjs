@@ -20,7 +20,7 @@ export class CreateUserSettingsDto {
 export class CreateUserDto {
   @IsNotEmpty()
   @IsString()
-  firstName: string;
+  username: string;
   @IsString()
   @IsOptional()
   displayName?: string;

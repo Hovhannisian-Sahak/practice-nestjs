@@ -17,8 +17,6 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { ValidateCreateUserPipe } from 'src/users/pipes/validate-create-user/validate-create-user.pipe';
-import { AuthGuard } from 'src/users/guards/auth/auth.guard';
 import mongoose from 'mongoose';
 import { UpdateUserDto } from 'src/users/dtos/UpdateUser.dto';
 import { UsersInterceptor } from 'src/users/interceptors/users/users.interceptor';
