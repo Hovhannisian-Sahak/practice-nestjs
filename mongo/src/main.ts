@@ -4,9 +4,11 @@ import { ValidationPipe } from '@nestjs/common';
 import 'reflect-metadata';
 import * as session from 'express-session';
 import * as passport from 'passport';
+
 require('dotenv').config();
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  const MongoStore = require('connect-mongo');
   app.useGlobalPipes(new ValidationPipe());
   app.use(
     session({
@@ -17,6 +19,10 @@ async function bootstrap() {
       cookie: {
         maxAge: 60000,
       },
+      store: MongoStore.create({
+        mongoUrl: process.env.DB__URL,
+        dbName: 's',
+      }),
     }),
   );
   app.use(passport.initialize());
