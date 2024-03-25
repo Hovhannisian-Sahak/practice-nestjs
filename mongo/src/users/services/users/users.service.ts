@@ -45,6 +45,9 @@ export class UsersService {
   deleteUser(id: string) {
     return this.userModel.findByIdAndDelete(id);
   }
+  findUserById(id: string) {
+    return this.userModel.findById(id);
+  }
   async findByUsername(username: string) {
     const user = await this.userModel.findOne({ username });
     console.log(user);

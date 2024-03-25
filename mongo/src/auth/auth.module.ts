@@ -12,6 +12,7 @@ import { LocalStrategy } from 'src/auth/strategies/LocalStrategy';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './strategies/JwtStrategy';
+import { SessionSerializer } from 'src/utils/SessionSerializer';
 require('dotenv').config();
 @Module({
   imports: [
@@ -20,7 +21,7 @@ require('dotenv').config();
       { name: User.name, schema: UserSchema },
       { name: UserSettings.name, schema: UserSettingsSchema },
     ]),
-    PassportModule,
+
     JwtModule.register({
       secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: '1d' },
@@ -40,6 +41,7 @@ require('dotenv').config();
     AuthService,
     LocalStrategy,
     JwtStrategy,
+    SessionSerializer,
   ],
 })
 export class AuthModule {}
