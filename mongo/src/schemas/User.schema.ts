@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import { UserSettings } from './UserSettings.schema';
 import { Post } from './Post.schema';
 import { Exclude } from 'class-transformer';
+import { Role } from 'src/auth/enums/roles.enum';
 
 @Schema()
 export class User {
@@ -17,6 +18,8 @@ export class User {
   avatarUrl?: string;
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'UserSettings' })
   settings?: UserSettings;
+  @Prop({ type: [String], default: [Role.User] })
+  roles: Role[];
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }] })
   posts: Post[];
 }

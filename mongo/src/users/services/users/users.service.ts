@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from 'src/schemas/User.schema';
@@ -15,6 +15,11 @@ export class UsersService {
     private userSettingsModel: Model<UserSettings>,
   ) {}
   async createUser({ settings, ...createUserDto }: CreateUserDto) {
+    const existingUser = await this.findByUsername(createUserDto.username);
+    console.log(existingUser);
+    if (existingUser) {
+      throw new ConflictException('User already exists');
+    }
     if (settings) {
       const newSettings = new this.userSettingsModel(settings);
       const savedSettings = await newSettings.save();
