@@ -7,6 +7,7 @@ import { ConfigModule } from '@nestjs/config';
 import { PassportModule } from '@nestjs/passport';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
+import { PaymentsModule } from './payments/payments.module';
 
 @Module({
   imports: [
@@ -20,10 +21,11 @@ import { APP_GUARD } from '@nestjs/core';
     }),
     ThrottlerModule.forRoot([
       {
-        ttl: 30,
-        limit: 2,
+        ttl: 60,
+        limit: 10,
       },
     ]),
+    PaymentsModule,
   ],
   controllers: [],
   providers: [
