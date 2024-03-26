@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import { Post } from 'src/schemas/Post.schema';
 import { CreatePostDto } from './dto/CreatePost.dto';
 import { User } from 'src/schemas/User.schema';
+import { UsersService } from 'src/users/services/users/users.service';
 @Injectable()
 export class PostsService {
   constructor(
@@ -12,14 +13,19 @@ export class PostsService {
     @InjectModel(User.name)
     private userModel: Model<User>,
   ) {}
-  async createPost({ userId, ...createPostDto }: CreatePostDto) {
-    const user = this.userModel.findById(userId); // find
-    if (!user) {
-      throw new HttpException('user not found', 404);
+  async createPost(user: User, createPostDto: CreatePostDto) {
+    const existingUser = await this.userModel.findOne({
+      username: user.username,
+    }); // Await the result
+    console.log(existingUser);
+    if (!existingUser) {
+      throw new HttpException('User not found', 404);
     }
     const newPost = new this.postModel(createPostDto);
     const savedPost = await newPost.save();
-    await user.updateOne({ $push: { posts: savedPost._id } });
+    await existingUser.updateOne({ $push: { posts: savedPost._id } });
+    console.log(existingUser);
+    console.log(savedPost);
     return savedPost;
   }
   findPostById() {}

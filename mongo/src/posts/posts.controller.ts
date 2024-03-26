@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Post,
+  Req,
   UseGuards,
   UsePipes,
   ValidationPipe,
@@ -12,7 +13,6 @@ import { Roles } from 'src/auth/decorators/roles.decorators';
 import { Role } from 'src/auth/enums/roles.enum';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
-import { AuthenticatedGuard } from 'src/auth/guards/authenticated.guard';
 
 @Controller('posts')
 export class PostsController {
@@ -20,9 +20,10 @@ export class PostsController {
   @Post()
   @UsePipes(new ValidationPipe())
   // @Roles(Role.Admin)
-  // @UseGuards(JwtAuthGuard, RolesGuard)
-  @UseGuards(AuthenticatedGuard)
-  createPost(@Body() createPostdto: CreatePostDto) {
-    return this.postService.createPost(createPostdto);
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  // @UseGuards(AuthenticatedGuard)
+  createPost(@Req() req, @Body() createPostdto: CreatePostDto) {
+    console.log(req);
+    return this.postService.createPost(req.user, createPostdto);
   }
 }

@@ -12,7 +12,7 @@ import { LocalStrategy } from 'src/auth/strategies/LocalStrategy';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './strategies/JwtStrategy';
-import { SessionSerializer } from 'src/utils/SessionSerializer';
+// import { SessionSerializer } from 'src/utils/SessionSerializer';
 require('dotenv').config();
 @Module({
   imports: [
@@ -41,7 +41,7 @@ require('dotenv').config();
     AuthService,
     LocalStrategy,
     JwtStrategy,
-    SessionSerializer,
+    // SessionSerializer,
   ],
 })
 export class AuthModule {}

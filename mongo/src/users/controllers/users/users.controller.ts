@@ -21,6 +21,7 @@ import mongoose from 'mongoose';
 import { UpdateUserDto } from 'src/users/dtos/UpdateUser.dto';
 import { UsersInterceptor } from 'src/users/interceptors/users/users.interceptor';
 import { ErrorsInterceptor } from 'src/users/interceptors/errors/errors.interceptor';
+import { Throttle, ThrottlerGuard } from '@nestjs/throttler';
 
 @Controller('users')
 // @UseGuards(AuthGuard)
@@ -35,9 +36,10 @@ export class UsersController {
     return this.usersService.createUser(createUserDto);
   }
 
-  @UseInterceptors(UsersInterceptor)
-  @UseInterceptors(ErrorsInterceptor)
+  // @UseInterceptors(UsersInterceptor)
+  // @UseInterceptors(ErrorsInterceptor)
   @Get()
+  @UseGuards(ThrottlerGuard)
   getUsers() {
     return this.usersService.getUsers();
   }
