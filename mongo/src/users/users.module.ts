@@ -9,6 +9,8 @@ import {
   UserSettingsSchema,
 } from 'src/schemas/UserSettings.schema';
 
+import { UserRepository } from 'src/users/repository/users.repository';
+
 @Module({
   imports: [
     MongooseModule.forFeature([
@@ -23,7 +25,7 @@ import {
     ]),
   ],
   controllers: [UsersController],
-  providers: [UsersService],
+  providers: [UsersService, UserRepository],
 })
 export class UsersModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
