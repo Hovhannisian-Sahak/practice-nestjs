@@ -2,10 +2,10 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
 import { Injectable } from '@nestjs/common';
+import { User } from '../../schemas/User.schema';
+import { CreateUserDto } from '../dtos/CreateUser.dto';
 
-import { CreateUserDto } from 'src/users/dtos/CreateUser.dto';
-import { User } from 'src/schemas/User.schema';
-@Injectable()
+
 export class UserRepository {
   constructor(@InjectModel(User.name) private userModel: Model<User>) {}
   async findByUsername(username: string) {

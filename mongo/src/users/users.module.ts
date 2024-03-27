@@ -3,13 +3,12 @@ import { UsersController } from './controllers/users/users.controller';
 import { UsersService } from './services/users/users.service';
 import { ExampleMiddleware } from './middlewares/example/example.middleware';
 import { MongooseModule } from '@nestjs/mongoose';
-import { User, UserSchema } from 'src/schemas/User.schema';
+import { User, UserSchema } from '../schemas/User.schema';
 import {
   UserSettings,
   UserSettingsSchema,
-} from 'src/schemas/UserSettings.schema';
-
-import { UserRepository } from 'src/users/repository/users.repository';
+} from '../schemas/UserSettings.schema';
+import { UserRepository } from './repository/users.repository';
 
 @Module({
   imports: [

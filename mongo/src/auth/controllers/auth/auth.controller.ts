@@ -7,14 +7,13 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
 
-import { UserLoginDto } from 'src/auth/dto/UserLogin.dto';
-import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
-import { LocalGuard } from 'src/auth/guards/local.guard';
-import { AuthService } from 'src/auth/services/auth/auth.service';
 import { Request } from 'express';
-import { AuthenticatedGuard } from 'src/auth/guards/authenticated.guard';
+import { AuthService } from '../../services/auth/auth.service';
+import { LocalGuard } from '../../guards/local.guard';
+import { JwtAuthGuard } from '../../guards/jwt.guard';
+import { AuthenticatedGuard } from '../../guards/authenticated.guard';
+
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}

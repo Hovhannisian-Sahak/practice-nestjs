@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import { UserSettings } from './UserSettings.schema';
 import { Post } from './Post.schema';
 import { Exclude } from 'class-transformer';
-import { Role } from 'src/auth/enums/roles.enum';
+import { Role } from '../auth/enums/roles.enum';
 
 @Schema()
 export class User {

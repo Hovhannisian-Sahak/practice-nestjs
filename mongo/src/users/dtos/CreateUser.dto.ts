@@ -4,6 +4,7 @@ import {
   IsNotEmpty,
   IsOptional,
   IsString,
+  MinLength,
   ValidateNested,
 } from 'class-validator';
 export class CreateUserSettingsDto {
@@ -20,12 +21,14 @@ export class CreateUserSettingsDto {
 export class CreateUserDto {
   @IsNotEmpty()
   @IsString()
+  @MinLength(3)
   username: string;
   @IsString()
   @IsOptional()
   displayName?: string;
   @IsNotEmpty()
   @IsString()
+  @MinLength(3)
   password: string;
   @IsOptional()
   @ValidateNested()

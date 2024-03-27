@@ -11,8 +11,9 @@ import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/CreatePost.dto';
 import { Roles } from 'src/auth/decorators/roles.decorators';
 import { Role } from 'src/auth/enums/roles.enum';
-import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
-import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { JwtAuthGuard } from '../auth/guards/jwt.guard';
+import { RolesGuard } from '../auth/guards/roles.guard';
+
 
 @Controller('posts')
 export class PostsController {

@@ -1,4 +1,3 @@
-import { UsersService } from 'src/users/services/users/users.service';
 import { CreateUserDto } from './../../dtos/CreateUser.dto';
 import {
   Body,
@@ -18,10 +17,12 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import mongoose from 'mongoose';
-import { UpdateUserDto } from 'src/users/dtos/UpdateUser.dto';
+
 import { UsersInterceptor } from 'src/users/interceptors/users/users.interceptor';
 import { ErrorsInterceptor } from 'src/users/interceptors/errors/errors.interceptor';
 import { Throttle, ThrottlerGuard } from '@nestjs/throttler';
+import { UsersService } from '../../services/users/users.service';
+import { UpdateUserDto } from '../../dtos/UpdateUser.dto';
 
 @Controller('users')
 // @UseGuards(AuthGuard)

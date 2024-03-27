@@ -1,19 +1,21 @@
 import { Module } from '@nestjs/common';
 import { AuthController } from './controllers/auth/auth.controller';
 import { AuthService } from './services/auth/auth.service';
-import { UsersService } from 'src/users/services/users/users.service';
+
 import { MongooseModule } from '@nestjs/mongoose';
-import { User, UserSchema } from 'src/schemas/User.schema';
-import {
-  UserSettings,
-  UserSettingsSchema,
-} from 'src/schemas/UserSettings.schema';
-import { LocalStrategy } from 'src/auth/strategies/LocalStrategy';
+
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './strategies/JwtStrategy';
+import { User, UserSchema } from '../schemas/User.schema';
+import {
+  UserSettings,
+  UserSettingsSchema,
+} from '../schemas/UserSettings.schema';
+import { UsersService } from '../users/services/users/users.service';
+import { LocalStrategy } from './strategies/LocalStrategy';
+import { UserRepository } from '../users/repository/users.repository';
 
-import { UserRepository } from 'src/users/repository/users.repository';
 // import { SessionSerializer } from 'src/utils/SessionSerializer';
 require('dotenv').config();
 @Module({

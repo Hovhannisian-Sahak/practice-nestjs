@@ -1,12 +1,17 @@
-import { ConflictException, Inject, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  Inject,
+  Injectable,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { UserRepository } from 'src/users/repository/users.repository';
-import { UserSettings } from 'src/schemas/UserSettings.schema';
-import { CreateUserDto } from 'src/users/dtos/CreateUser.dto';
-import { UpdateUserDto } from 'src/users/dtos/UpdateUser.dto';
-import { encodePassword } from 'src/utils/bcrypt';
-import { User } from 'src/schemas/User.schema';
+import { User } from '../../../schemas/User.schema';
+import { UserRepository } from '../../repository/users.repository';
+import { UserSettings } from '../../../schemas/UserSettings.schema';
+import { CreateUserDto } from '../../dtos/CreateUser.dto';
+import { encodePassword } from '../../../utils/bcrypt';
+import { UpdateUserDto } from '../../dtos/UpdateUser.dto';
 
 @Injectable()
 export class UsersService {
@@ -22,7 +27,7 @@ export class UsersService {
     );
     console.log(existingUser);
     if (existingUser) {
-      throw new ConflictException('User already exists');
+      throw new BadRequestException('User already exists');
     }
     if (settings) {
       const newSettings = new this.userSettingsModel(settings);
