@@ -22,6 +22,6 @@ export class UsersInterceptor implements NestInterceptor {
   ): Observable<any> | Promise<Observable<any>> {
     return next
       .handle()
-      .pipe(map((data) => data.map((user) => plainToInstance(User, user))));
+      .pipe(map((data) => data.map((user) => plainToClass(User, user))));
   }
 }
