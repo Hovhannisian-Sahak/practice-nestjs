@@ -9,6 +9,7 @@ import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
 import { PaymentsModule } from './payments/payments.module';
 import { GatewayModule } from './gateway/gateway.module';
+import { EventEmitterModule } from '@nestjs/event-emitter';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { GatewayModule } from './gateway/gateway.module';
     PassportModule.register({
       session: true,
     }),
+    EventEmitterModule.forRoot(),
     ThrottlerModule.forRoot([
       {
         ttl: 60,
@@ -27,7 +29,7 @@ import { GatewayModule } from './gateway/gateway.module';
       },
     ]),
     PaymentsModule,
-    GatewayModule
+    GatewayModule,
   ],
   controllers: [],
   providers: [

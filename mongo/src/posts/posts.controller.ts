@@ -13,7 +13,8 @@ import { Roles } from 'src/auth/decorators/roles.decorators';
 import { Role } from 'src/auth/enums/roles.enum';
 import { JwtAuthGuard } from '../auth/guards/jwt.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
-
+import { EventEmitter2 } from '@nestjs/event-emitter';
+import { ResponseAddEvent } from './events/response-add-post.event';
 
 @Controller('posts')
 export class PostsController {
@@ -23,8 +24,7 @@ export class PostsController {
   // @Roles(Role.Admin)
   @UseGuards(JwtAuthGuard, RolesGuard)
   // @UseGuards(AuthenticatedGuard)
-  createPost(@Req() req, @Body() createPostdto: CreatePostDto) {
-    console.log(req);
-    return this.postService.createPost(req.user, createPostdto);
+  async createPost(@Req() req, @Body() createPostdto: CreatePostDto) {
+    return await this.postService.createPost(req.user, createPostdto);
   }
 }
