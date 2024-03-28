@@ -11,6 +11,7 @@ import {
   Patch,
   Post,
   Query,
+  Req,
   UseGuards,
   UseInterceptors,
   UsePipes,
@@ -23,6 +24,7 @@ import { ErrorsInterceptor } from 'src/users/interceptors/errors/errors.intercep
 import { Throttle, ThrottlerGuard } from '@nestjs/throttler';
 import { UsersService } from '../../services/users/users.service';
 import { UpdateUserDto } from '../../dtos/UpdateUser.dto';
+import { Request } from 'express';
 
 @Controller('users')
 // @UseGuards(AuthGuard)
@@ -41,8 +43,8 @@ export class UsersController {
   // @UseInterceptors(ErrorsInterceptor)
   @Get()
   @UseGuards(ThrottlerGuard)
-  getUsers() {
-    return this.usersService.getUsers();
+  async getUsers(@Req() request: Request) {
+    return await this.usersService.getUsers(request.query);
   }
   @Get(':id')
   async getUserById(@Param('id') id: string) {

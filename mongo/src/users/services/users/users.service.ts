@@ -12,6 +12,7 @@ import { UserSettings } from '../../../schemas/UserSettings.schema';
 import { CreateUserDto } from '../../dtos/CreateUser.dto';
 import { encodePassword } from '../../../utils/bcrypt';
 import { UpdateUserDto } from '../../dtos/UpdateUser.dto';
+import { APIFeatures } from '../../../utils/apiFeatures';
 
 @Injectable()
 export class UsersService {
@@ -53,8 +54,17 @@ export class UsersService {
     await user.populate(['settings', 'posts']);
     return user;
   }
-  async getUsers() {
-    return await this.userModel.find().populate('settings posts');
+  async getUsers(query?: any) {
+    const features = new APIFeatures(
+      this.userModel.find().populate('settings posts'),
+      query,
+    )
+      .filter()
+      .sorting()
+      .limit()
+      .pagination();
+    const users = await features.mongooseQuery;
+    return users;
   }
 
   updateUser(id: string, updateUserDto: UpdateUserDto) {
